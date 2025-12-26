@@ -12,7 +12,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050505">
 
-    <!-- PWA Manifest Link -->
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogItCn0LDRgdGLINCx0YvRgtC40Y8iLAogICJzaG9ydF9uYW1lIjogIkNsb2NrQmVpbmciLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzA1MDUwNSIsCiAgInRoZW1lX2NvbG9yIjogIiMwNTA1MDUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vY2RuLWljb25zLXBuZy5mbGF0aWNvbi5jb20vNTEyLzI4NjIvMjg2MjUyNy5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS81MTIvMjg2Mi8yODYyNTI3LnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==" />
 
     <!-- Tailwind CSS (CDN) -->
@@ -24,15 +23,30 @@
             fontFamily: {
               sans: ['system-ui', 'sans-serif'],
               serif: ['Georgia', 'serif'],
+              mono: ['Courier New', 'monospace'],
             },
             colors: {
-              'void-900': '#0a0a0a',
-              'void-800': '#171717',
               'mystic-gold': '#d4af37',
+              'gold-light': '#ffe4b5',
+              'gold-dark': '#8B4513',
+              'void': '#050505',
+              'void-card': '#0a0a0a',
             },
             animation: {
-              'spin-slow': 'spin 20s linear infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'spin-slow': 'spin 30s linear infinite',
+              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'fade-in': 'fadeIn 2s ease-out forwards',
+              'glow': 'glowPulse 4s infinite alternate',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'scale(0.98)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              glowPulse: {
+                '0%': { opacity: '0.1', transform: 'scale(1)' },
+                '100%': { opacity: '0.3', transform: 'scale(1.2)' },
+              }
             }
           }
         }
@@ -40,9 +54,15 @@
     </script>
 
     <style>
+      :root {
+        --gold: #d4af37;
+        --gold-glow: rgba(212, 175, 55, 0.3);
+        --void: #050505;
+      }
+
       body { 
-        background-color: #050505; 
-        color: #f5f5f5; 
+        background-color: var(--void); 
+        color: #fcfcfc; 
         overflow: hidden; 
         margin: 0;
         padding: 0;
@@ -53,6 +73,22 @@
         width: 100%;
         height: 100%;
       }
+      
+      /* Shared Cinematic Styles */
+      .cinematic-vignette {
+        background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 50%, #050505 100%);
+      }
+
+      .cinematic-noise::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 50;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
       * { -webkit-tap-highlight-color: transparent; user-select: none; }
@@ -74,7 +110,7 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="/clock-of-being/assets/index-01f88517.js"></script>
+  <script type="module" crossorigin src="/assets/index-fe9b68f0.js"></script>
 </head>
 <body>
     <div id="root"></div>
